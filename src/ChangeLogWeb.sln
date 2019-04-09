@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChangeLogWeb", "ChangeLogWe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChangeLogWeb.Repository", "ChangeLogWeb.Repository\ChangeLogWeb.Repository.csproj", "{5E75068E-9979-4D7B-9304-4E4B918DB288}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChangeLogWeb.Domain", "ChangeLogWeb.Domain\ChangeLogWeb.Domain.csproj", "{6D32AEC4-BCB6-48D1-9EFD-9D57693F0798}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{5E75068E-9979-4D7B-9304-4E4B918DB288}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E75068E-9979-4D7B-9304-4E4B918DB288}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E75068E-9979-4D7B-9304-4E4B918DB288}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D32AEC4-BCB6-48D1-9EFD-9D57693F0798}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D32AEC4-BCB6-48D1-9EFD-9D57693F0798}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D32AEC4-BCB6-48D1-9EFD-9D57693F0798}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D32AEC4-BCB6-48D1-9EFD-9D57693F0798}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

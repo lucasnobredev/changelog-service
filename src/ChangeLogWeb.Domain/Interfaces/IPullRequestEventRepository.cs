@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace ChangeLogWeb.Models.Interfaces
+namespace ChangeLogWeb.Domain.Interfaces
 {
     public interface IPullRequestEventRepository
     {
+        void Insert(PullRequestEvent pullRequestEvent);
     }
 }

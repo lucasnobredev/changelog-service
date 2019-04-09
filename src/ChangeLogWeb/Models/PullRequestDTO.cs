@@ -15,10 +15,10 @@ namespace ChangeLogWeb.Models
         public string Body { get; set; }
 
         [JsonProperty("created_at")]
-        public string CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [JsonProperty("merged_at")]
-        public string MergedAt { get; set; }
+        public DateTime MergedAt { get; set; }
 
         [JsonProperty("merged")]
         public bool Merged { get; set; }
