@@ -8,4 +8,8 @@
     <PackageReference Include="MongoDB.Driver" Version="2.8.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ChangeLogWeb.Domain\ChangeLogWeb.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

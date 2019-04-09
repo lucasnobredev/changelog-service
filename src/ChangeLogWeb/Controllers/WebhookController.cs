@@ -11,11 +11,11 @@ namespace ChangeLogWeb.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VWebhookController : ControllerBase
+    public class WebhookController : ControllerBase
     {
         private readonly IPullRequestEventRepository _pullRequestEventRepository;
 
-        public VWebhookController(
+        public WebhookController(
             IPullRequestEventRepository pullRequestEventRepository)
         {
             _pullRequestEventRepository = pullRequestEventRepository;
