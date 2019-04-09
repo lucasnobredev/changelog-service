@@ -4,17 +4,19 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
 @foreach (var pullrequest in Model)
 {
-    <p>@pullrequest.Id</p>
-    <p>@pullrequest.Action</p>
-    <p>@Html.Raw(pullrequest.Body)</p>
-    <p>@pullrequest.CreatedAt</p>
-    <p>@pullrequest.MergedAt</p>
-    <p>@pullrequest.Merged</p>
-    <p>@pullrequest.MergedBy</p>
-    <p>@pullrequest.RepositoryName</p>
-    <p>@pullrequest.Title</p>
+    <div class="card" style="width:40%; margin:0 30%">
+        <div class="card-body">
+            <h3>(@pullrequest.RepositoryName)</h3>
+            <h5 class="card-title">@pullrequest.Title</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Merge at @pullrequest.MergedAt by @pullrequest.MergedBy </h6>
+            <p class="card-text">@Html.Raw(pullrequest.Body)</p>
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+        </div>
+    </div>
 }
