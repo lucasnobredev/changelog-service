@@ -13,8 +13,9 @@ namespace ChangeLogWeb.Controllers
     {
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] WebhookRequest obj)
+        public IActionResult Post([FromBody] WebhookRequest obj)
         {
+            return Ok(obj);
         }
     }
 }

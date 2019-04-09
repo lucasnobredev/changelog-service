@@ -28,5 +28,9 @@ namespace ChangeLogWeb.Models
 
         [JsonProperty("base")]
         public BaseDTO Base { get; set; }
+
+        [JsonProperty("head")]
+        public HeadDTO Head { get; set; }
+
     }
 }
