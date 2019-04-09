@@ -7,5 +7,6 @@ namespace ChangeLogWeb.Domain.Interfaces
     public interface IPullRequestEventRepository
     {
         void Insert(PullRequestEvent pullRequestEvent);
+        IList<PullRequestEvent> GetAll();
     }
 }

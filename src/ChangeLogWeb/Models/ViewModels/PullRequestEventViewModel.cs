@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace ChangeLogWeb.Domain
+namespace ChangeLogWeb.Models.ViewModels
 {
-    public class PullRequestEvent
+    public class PullRequestEventViewModel
     {
         public object Id { get; set; }
         public string Action { get; set; }
