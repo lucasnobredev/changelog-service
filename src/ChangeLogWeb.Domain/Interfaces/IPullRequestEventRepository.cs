@@ -8,5 +8,6 @@ namespace ChangeLogWeb.Domain.Interfaces
     {
         void Insert(PullRequestEvent pullRequestEvent);
         IList<PullRequestEvent> GetAll();
+        IList<PullRequestEvent> GetAll(string repositoryName, string labelName);
     }
 }

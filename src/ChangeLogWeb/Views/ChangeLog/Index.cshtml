@@ -18,10 +18,35 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    
+
                 </ul>
             </div>
         </nav>
+
+        <div style="width:40%; margin:2% 32%; border:0; float:left">
+            <div class="row">
+                <div style="width:20%; float:left;z-index:999999">
+                    <label>RepositoryName</label>
+                    <select class="form-control" onchange="Filter()" id="RepositoryNameSelect">
+                        <option value="">...</option>
+                        <option value="changelog-tests">changelog-tests</option>
+                        <option value="changelog-tests2">changelog-tests2</option>
+                    </select>
+                </div>
+                <div style="width:20%; float:left; margin-left:50px;z-index:999999">
+                    <label>LabelName</label>
+                    <select class="form-control" onchange="Filter()" id="LabelNameSelect">
+                        <option value="">...</option>
+                        <option value="bug">bug</option>
+                        <option value="enhancement">enhancement</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <a class="btn" id="BuscarBtn" href="" style="z-index:999999">Buscar</a>
+            </div>
+        </div>
+
         <div class="col-lg-12">
             @foreach (var pullrequest in Model)
             {
@@ -29,11 +54,11 @@
                     <div class="card-body">
                         <h4 class="card-title">@pullrequest.Title </h4>
                         <h6 class="card-subtitle mb-2 text-muted">@pullrequest.MergedAt by @pullrequest.MergedBy </h6>
-                        @if(pullrequest.LabelsName != null)
+                        @if (pullrequest.Labels != null)
                         {
-                            foreach(var label in pullrequest.LabelsName)
+                            foreach (var label in pullrequest.Labels)
                             {
-                                <span style="background:blue; border-radius:30px; width:100%; padding:0% 3%; color:#FFF; font-size:14px">@label</span>
+                                <span style="background:blue; border-radius:30px; width:100%; padding:0% 3%; color:#FFF; font-size:14px">@label.Name</span>
                             }
                         }
                         <p class="card-text">@Html.Raw(pullrequest.Body)</p>
@@ -45,3 +70,16 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js"
+        integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+        crossorigin="anonymous"></script>
+
+<script>
+    function Filter() {
+        let repositoryName = $('#RepositoryNameSelect').val();
+        let labelName = $('#LabelNameSelect').val();
+
+        $('#BuscarBtn').prop('href', '/changelog?repositoryName=' + repositoryName + "&labelName=" + labelName);
+    }
+</script>

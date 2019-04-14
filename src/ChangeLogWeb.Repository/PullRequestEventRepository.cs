@@ -1,8 +1,10 @@
 ﻿using ChangeLogWeb.Domain;
 using ChangeLogWeb.Domain.Interfaces;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ChangeLogWeb.Repository
 {
@@ -21,12 +23,26 @@ namespace ChangeLogWeb.Repository
 
         public void Insert(PullRequestEvent pullRequestEvent)
         {
+            pullRequestEvent.Id = ObjectId.GenerateNewId();
             collection.InsertOne(pullRequestEvent);
         }
 
         public IList<PullRequestEvent> GetAll()
         {
             return collection.Find(_ => true).ToList();
+        }
+
+        public IList<PullRequestEvent> GetAll(string repositoryName, string labelName)
+        {
+            var builder = Builders<PullRequestEvent>.Filter;
+
+            var repositoryNameFilter = repositoryName == null ? builder.Where(x => x.RepositoryName !=null ) : builder.Eq(x => x.RepositoryName, repositoryName);
+
+            var labelNameFilter = labelName == null ? 
+                builder.Where(x => x.Labels != null) :
+                builder.ElemMatch(x => x.Labels, x => x.Name == labelName);
+            
+            return collection.Find(repositoryNameFilter & labelNameFilter).ToList();
         }
     }
 }

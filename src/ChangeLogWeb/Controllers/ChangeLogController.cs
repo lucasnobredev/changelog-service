@@ -20,9 +20,9 @@ namespace ChangeLogWeb.Controllers
             _pullRequestEventRepository = pullRequestEventRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string repositoryName, string labelName)
         {
-            var pullrequestEvents =_pullRequestEventRepository.GetAll();
+            var pullrequestEvents =_pullRequestEventRepository.GetAll(repositoryName, labelName);
 
             var viewModel = new List<PullRequestEventViewModel>();
 
@@ -39,9 +39,21 @@ namespace ChangeLogWeb.Controllers
                     MergedBy = pullRequestEvent.MergedBy,
                     RepositoryName = pullRequestEvent.RepositoryName,
                     Title = pullRequestEvent.Title,
-                    Id = pullRequestEvent.Id,
-                    LabelsName = pullRequestEvent.LabelsName
+                    Id = pullRequestEvent.Id
+                    //LabelsName = pullRequestEvent.LabelsName
                 };
+
+                itemViewModel.Labels = new List<LabelDTO>();
+                foreach(var label in pullRequestEvent.Labels)
+                {
+                    var labelDTO = new LabelDTO()
+                    {
+                        Color = label.Color,
+                        Name = label.Name
+                    };
+
+                    itemViewModel.Labels.Add(labelDTO);
+                }
 
                 viewModel.Add(itemViewModel);
             }

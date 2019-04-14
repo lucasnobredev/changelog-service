@@ -37,11 +37,29 @@ namespace ChangeLogWeb.Controllers
                 Title = obj.PullRequest.Title
             };
 
+            pullRequestEvent.Labels = new List<Label>();
             if(obj.PullRequest.Labels != null)
             {
-                pullRequestEvent.LabelsName = new List<string>();
-                foreach (var label in obj.PullRequest.Labels)
-                    pullRequestEvent.LabelsName.Add(label.Name);
+                foreach (var labelRequest in obj.PullRequest.Labels)
+                {
+                    var label = new Label()
+                    {
+                        Color = labelRequest.Color,
+                        Name = labelRequest.Name
+                    };
+
+                    pullRequestEvent.Labels.Add(label);
+                }
+            }
+            else
+            {
+                var label = new Label()
+                {
+                    Color = "CCCCCC",
+                    Name = "none"
+                };
+
+                pullRequestEvent.Labels.Add(label);
             }
             
             _pullRequestEventRepository.Insert(pullRequestEvent);
