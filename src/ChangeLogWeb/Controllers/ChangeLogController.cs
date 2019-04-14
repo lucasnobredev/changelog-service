@@ -39,7 +39,8 @@ namespace ChangeLogWeb.Controllers
                     MergedBy = pullRequestEvent.MergedBy,
                     RepositoryName = pullRequestEvent.RepositoryName,
                     Title = pullRequestEvent.Title,
-                    Id = pullRequestEvent.Id
+                    Id = pullRequestEvent.Id,
+                    LabelsName = pullRequestEvent.LabelsName
                 };
 
                 viewModel.Add(itemViewModel);

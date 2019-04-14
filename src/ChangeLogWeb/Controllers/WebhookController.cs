@@ -37,6 +37,13 @@ namespace ChangeLogWeb.Controllers
                 Title = obj.PullRequest.Title
             };
 
+            if(obj.PullRequest.Labels != null)
+            {
+                pullRequestEvent.LabelsName = new List<string>();
+                foreach (var label in obj.PullRequest.Labels)
+                    pullRequestEvent.LabelsName.Add(label.Name);
+            }
+            
             _pullRequestEventRepository.Insert(pullRequestEvent);
 
             return Ok(obj);

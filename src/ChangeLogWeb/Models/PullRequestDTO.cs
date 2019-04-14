@@ -32,5 +32,8 @@ namespace ChangeLogWeb.Models
         [JsonProperty("head")]
         public HeadDTO Head { get; set; }
 
+        [JsonProperty("labels")]
+        public IList<LabelDTO> Labels { get; set; }
+
     }
 }

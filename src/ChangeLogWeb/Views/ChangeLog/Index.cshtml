@@ -29,7 +29,13 @@
                     <div class="card-body">
                         <h4 class="card-title">@pullrequest.Title </h4>
                         <h6 class="card-subtitle mb-2 text-muted">@pullrequest.MergedAt by @pullrequest.MergedBy </h6>
-                        <span style="background:blue; border-radius:30px; width:100%; padding:0% 3%; color:#FFF; font-size:14px">Fix</span>
+                        @if(pullrequest.LabelsName != null)
+                        {
+                            foreach(var label in pullrequest.LabelsName)
+                            {
+                                <span style="background:blue; border-radius:30px; width:100%; padding:0% 3%; color:#FFF; font-size:14px">@label</span>
+                            }
+                        }
                         <p class="card-text">@Html.Raw(pullrequest.Body)</p>
                         <a href="#" class="card-link">Card link</a>
                         <a href="#" class="card-link">Another link</a>

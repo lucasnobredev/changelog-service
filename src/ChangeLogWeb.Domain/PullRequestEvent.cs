@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ChangeLogWeb.Domain
 {
@@ -13,5 +14,6 @@ namespace ChangeLogWeb.Domain
         public bool Merged { get; set; }
         public string MergedBy { get; set; }
         public string RepositoryName { get; set; }
+        public IList<string> LabelsName { get; set; }
     }
 }
