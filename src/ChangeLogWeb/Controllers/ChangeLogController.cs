@@ -60,7 +60,7 @@ namespace ChangeLogWeb.Controllers
                 viewModel.Add(itemViewModel);
             }
 
-            return Ok(pullrequestEvents);
+            return Ok(viewModel);
         }
     }
 }
