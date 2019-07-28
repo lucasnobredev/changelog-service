@@ -7,5 +7,6 @@ namespace ChangeLogWeb.Domain.Interfaces
     public interface ITeamRepository
     {
         void Insert(Team team);
+        IList<Team> GetAll();
     }
 }

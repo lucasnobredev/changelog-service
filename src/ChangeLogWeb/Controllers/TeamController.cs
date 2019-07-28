@@ -25,8 +25,23 @@ namespace ChangeLogWeb.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] TeamRequest obj)
         {
-            _teamRepository.Insert(new Domain.Team(obj.Name));
-            return Ok();
+            var team = new Domain.Team(obj.Name);
+
+            if (obj.ChildrenTeam != null)
+            {
+                team.ChildrenTeams = new List<Domain.Team>();
+                foreach(var child in obj.ChildrenTeam)
+                    team.ChildrenTeams.Add(new Domain.Team(child.Name));
+            }
+
+            _teamRepository.Insert(team);
+            return Ok(team);
+        }
+        
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(_teamRepository.GetAll());
         }
     }
 }

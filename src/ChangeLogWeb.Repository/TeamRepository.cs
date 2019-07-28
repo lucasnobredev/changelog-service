@@ -1,4 +1,5 @@
 ﻿using ChangeLogWeb.Domain;
+using ChangeLogWeb.Domain.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace ChangeLogWeb.Repository
 {
-    public class TeamRepository
+    public class TeamRepository : ITeamRepository
     {
         private IMongoClient Client { get; set; }
         private IMongoDatabase Database { get; set; }
@@ -23,7 +24,17 @@ namespace ChangeLogWeb.Repository
         public void Insert(Team team)
         {
             team.Id = ObjectId.GenerateNewId();
+            if (team.ChildrenTeams != null)
+            {
+                foreach (var child in team.ChildrenTeams)
+                    child.Id = ObjectId.GenerateNewId();
+            }
             collection.InsertOne(team);
+        }
+
+        public IList<Team> GetAll()
+        {
+            return collection.Find(_ => true).ToList();
         }
     }
 }
