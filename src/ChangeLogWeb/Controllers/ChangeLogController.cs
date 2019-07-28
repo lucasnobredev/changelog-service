@@ -22,7 +22,7 @@ namespace ChangeLogWeb.Controllers
             _pullRequestEventRepository = pullRequestEventRepository;
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Get()
         {
             var pullrequestEvents = _pullRequestEventRepository.GetAll(null, null);
