@@ -5,27 +5,24 @@ using System.Threading.Tasks;
 using ChangeLogWeb.Domain.Interfaces;
 using ChangeLogWeb.Models.ViewModels;
 using MarkedNet;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChangeLogWeb.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ChangeLogController : ControllerBase
+    [Route("changelog")]
+    public class ChangeLogDeprecatedController : Controller
     {
         private readonly IPullRequestEventRepository _pullRequestEventRepository;
 
-        public ChangeLogController(
+        public ChangeLogDeprecatedController(
             IPullRequestEventRepository pullRequestEventRepository)
         {
             _pullRequestEventRepository = pullRequestEventRepository;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        public IActionResult Index(string repositoryName, string labelName)
         {
-            var pullrequestEvents = _pullRequestEventRepository.GetAll(null, null);
+            var pullrequestEvents =_pullRequestEventRepository.GetAll(repositoryName, labelName);
 
             var viewModel = new List<PullRequestEventViewModel>();
 
@@ -43,10 +40,11 @@ namespace ChangeLogWeb.Controllers
                     RepositoryName = pullRequestEvent.RepositoryName,
                     Title = pullRequestEvent.Title,
                     Id = pullRequestEvent.Id
+                    //LabelsName = pullRequestEvent.LabelsName
                 };
 
                 itemViewModel.Labels = new List<LabelDTO>();
-                foreach (var label in pullRequestEvent.Labels)
+                foreach(var label in pullRequestEvent.Labels)
                 {
                     var labelDTO = new LabelDTO()
                     {
@@ -60,7 +58,7 @@ namespace ChangeLogWeb.Controllers
                 viewModel.Add(itemViewModel);
             }
 
-            return Ok(viewModel);
+            return View(viewModel);
         }
     }
 }
