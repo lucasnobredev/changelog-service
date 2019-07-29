@@ -52,7 +52,7 @@ namespace ChangeLogWeb.Controllers
                 };
 
                 if(pullRequestEvent.Team.ChildrenTeams != null)
-                {
+                {   
                     itemViewModel.Team.ChildrenTeam = new List<Models.TeamResponse>();
                     foreach (var childTeam in pullRequestEvent.Team.ChildrenTeams)
                     {

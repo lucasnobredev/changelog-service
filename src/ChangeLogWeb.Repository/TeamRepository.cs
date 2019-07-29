@@ -24,12 +24,6 @@ namespace ChangeLogWeb.Repository
 
         public void Insert(Team team)
         {
-            //team.Id = ObjectId.GenerateNewId();
-            //if (team.ChildrenTeams != null)
-            //{
-            //    foreach (var child in team.ChildrenTeams)
-            //        child.Id = ObjectId.GenerateNewId();
-            //}
             collection.InsertOne(team);
         }
 
