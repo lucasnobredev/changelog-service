@@ -4,9 +4,8 @@ using System.Text;
 
 namespace ChangeLogWeb.Domain
 {
-    public class Team
+    public class Team : Entity
     {
-        public object Id { get; set; }
         public string Name { get; set; }
         public IList<Team> ChildrenTeams { get; set; }
 

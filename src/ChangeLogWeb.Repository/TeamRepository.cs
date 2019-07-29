@@ -4,6 +4,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ChangeLogWeb.Repository
@@ -23,18 +24,24 @@ namespace ChangeLogWeb.Repository
 
         public void Insert(Team team)
         {
-            team.Id = ObjectId.GenerateNewId();
-            if (team.ChildrenTeams != null)
-            {
-                foreach (var child in team.ChildrenTeams)
-                    child.Id = ObjectId.GenerateNewId();
-            }
+            //team.Id = ObjectId.GenerateNewId();
+            //if (team.ChildrenTeams != null)
+            //{
+            //    foreach (var child in team.ChildrenTeams)
+            //        child.Id = ObjectId.GenerateNewId();
+            //}
             collection.InsertOne(team);
         }
 
         public IList<Team> GetAll()
         {
             return collection.Find(_ => true).ToList();
+        }
+
+        public Team GetById(string id)
+        {
+            return collection.Find(x => x.Id == id || x.ChildrenTeams.Any(y => y.Id == id))
+                .FirstOrDefault();
         }
     }
 }

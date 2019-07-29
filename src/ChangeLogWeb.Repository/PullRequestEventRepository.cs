@@ -23,7 +23,6 @@ namespace ChangeLogWeb.Repository
 
         public void Insert(PullRequestEvent pullRequestEvent)
         {
-            pullRequestEvent.Id = ObjectId.GenerateNewId();
             collection.InsertOne(pullRequestEvent);
         }
 

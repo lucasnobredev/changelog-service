@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ChangeLogWeb.Domain;
 using ChangeLogWeb.Domain.Interfaces;
 using ChangeLogWeb.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +13,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.IdGenerators;
+using MongoDB.Bson.Serialization.Serializers;
 using Newtonsoft.Json.Serialization;
 
 namespace ChangeLogWeb
@@ -46,6 +51,14 @@ namespace ChangeLogWeb
 
             services.AddSingleton<IPullRequestEventRepository, PullRequestEventRepository>();
             services.AddSingleton<ITeamRepository, TeamRepository>();
+
+            BsonClassMap.RegisterClassMap<Entity>(config => {
+                config.AutoMap();
+                config.IdMemberMap
+                      .SetIdGenerator(StringObjectIdGenerator.Instance)
+                      .SetSerializer(new StringSerializer(BsonType.ObjectId))
+                      .SetIgnoreIfDefault(true);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
