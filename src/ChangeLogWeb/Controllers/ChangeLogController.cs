@@ -45,6 +45,26 @@ namespace ChangeLogWeb.Controllers
                     Id = pullRequestEvent.Id
                 };
 
+                itemViewModel.Team = new Models.TeamResponse()
+                {
+                    Id = pullRequestEvent.Team.Id,
+                    Name = pullRequestEvent.Team.Name,
+                };
+
+                if(pullRequestEvent.Team.ChildrenTeams != null)
+                {
+                    itemViewModel.Team.ChildrenTeam = new List<Models.TeamResponse>();
+                    foreach (var childTeam in pullRequestEvent.Team.ChildrenTeams)
+                    {
+                        var childTeamResponse = new Models.TeamResponse()
+                        {
+                            Id = childTeam.Id,
+                            Name = childTeam.Name
+                        };
+                        itemViewModel.Team.ChildrenTeam.Add(childTeamResponse);
+                    }
+                }
+
                 itemViewModel.Labels = new List<LabelDTO>();
                 foreach (var label in pullRequestEvent.Labels)
                 {
