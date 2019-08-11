@@ -8,6 +8,6 @@ namespace ChangeLogWeb.Domain.Interfaces
     {
         void Insert(Team team);
         IList<Team> GetAll();
-        Team GetById(string id);
+        Team GetByKeys(string majorTeam, string secretKey, string childTeam = null);
     }
 }

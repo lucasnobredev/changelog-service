@@ -6,12 +6,13 @@ namespace ChangeLogWeb.Domain
 {
     public class Team : Entity
     {
-        public string Name { get; set; }
+        public string Code { get; set; }
+        public string SecretKey { get; set; }
         public IList<Team> ChildrenTeams { get; set; }
 
-        public Team(string name, IList<Team> childrenTeams = null)
+        public Team(string code, IList<Team> childrenTeams = null)
         {
-            Name = name;
+            Code = code;
             ChildrenTeams = childrenTeams;
         }
     }

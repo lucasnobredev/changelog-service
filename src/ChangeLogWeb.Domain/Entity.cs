@@ -6,6 +6,6 @@ namespace ChangeLogWeb.Domain
 {
     public class Entity
     {
-        public string Id { get; protected set; }
+        public string Id { get; set; }
     }
 }

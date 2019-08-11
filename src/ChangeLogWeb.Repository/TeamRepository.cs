@@ -32,9 +32,13 @@ namespace ChangeLogWeb.Repository
             return collection.Find(_ => true).ToList();
         }
 
-        public Team GetById(string id)
+        public Team GetByKeys(string majorTeam, string secretKey, string childTeam = null)
         {
-            return collection.Find(x => x.Id == id || x.ChildrenTeams.Any(y => y.Id == id))
+            return collection
+                .Find(x =>
+                      x.Code == majorTeam && 
+                      x.SecretKey == secretKey &&
+                      x.ChildrenTeams.Any(y => y.Code == childTeam))
                 .FirstOrDefault();
         }
     }
