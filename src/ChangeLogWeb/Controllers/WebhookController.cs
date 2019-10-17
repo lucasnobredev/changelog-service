@@ -93,72 +93,10 @@ namespace ChangeLogWeb.Controllers
                     }
                 }
             }
-            else
-            {
-                var label = new Label()
-                {
-                    Color = "CCCCCC",
-                    Name = "none"
-                };
-
-                pullRequestEvent.Labels.Add(label);
-            }
             
             _pullRequestEventRepository.Insert(pullRequestEvent);
 
             return Ok(pullRequestEvent);
-        }
-
-        [HttpPost]
-        [Route("/api/webhook/teste")] 
-        public IActionResult Post2()
-        {
-            string teste = "7eaefe36ce291cf88e5da09106e67e53d3d41005";
-
-            using (var reader = new StreamReader(Request.Body))
-            {
-                var txt = reader.ReadToEndAsync().Result;
-
-                var secret = Encoding.ASCII.GetBytes("lucas");
-                var payloadBytes = Encoding.ASCII.GetBytes(txt);
-
-                using (var hmSha1 = new HMACSHA1(secret))
-                {
-                    var hash = hmSha1.ComputeHash(payloadBytes);
-
-                    var hashString = ToHexString(hash);
-
-                    if (hashString.Equals(teste))
-                    {
-                        Console.WriteLine("aqui");
-                    }
-                }
-
-            }
-
-            return Ok();
-        }
-
-        public static string ByteToString(byte[] buff)
-        {
-            string sbinary = "";
-
-            for (int i = 0; i < buff.Length; i++)
-            {
-                sbinary += buff[i].ToString("X2"); // hex format
-            }
-            return (sbinary);
-        }
-
-        public static string ToHexString(byte[] bytes)
-        {
-            var builder = new StringBuilder(bytes.Length * 2);
-            foreach (byte b in bytes)
-            {
-                builder.AppendFormat("{0:x2}", b);
-            }
-
-            return builder.ToString();
         }
     }
 }
