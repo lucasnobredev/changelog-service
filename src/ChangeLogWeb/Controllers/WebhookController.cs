@@ -61,8 +61,8 @@ namespace ChangeLogWeb.Controllers
                 MergedBy = obj.PullRequest.MergedBy.Login,
                 RepositoryName = obj.PullRequest.Head.Repo.Name,
                 Title = obj.PullRequest.Title,
-                MajorTeam = team.Code,
-                ChildTeam = team.ChildrenTeams?.FirstOrDefault(x => x.Code == childTeam).Code
+                MajorTeam = team.Name,
+                ChildTeam = team.ChildrenTeams?.FirstOrDefault(x => x.Name == childTeam).Name
             };
 
             pullRequestEvent.Labels = new List<Label>();

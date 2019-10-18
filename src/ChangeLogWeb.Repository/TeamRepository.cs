@@ -36,9 +36,9 @@ namespace ChangeLogWeb.Repository
         {
             var builder = Builders<Team>.Filter;
 
-            var majorTeamFilter = builder.Where(x => x.Code == majorTeam);
+            var majorTeamFilter = builder.Where(x => x.Name == majorTeam);
             var labelNameFilter = childTeam != null ? 
-                builder.Where(x => x.ChildrenTeams.Any(y => y.Code == childTeam)) :
+                builder.Where(x => x.ChildrenTeams.Any(y => y.Name == childTeam)) :
                 builder.Empty;
 
             return collection
