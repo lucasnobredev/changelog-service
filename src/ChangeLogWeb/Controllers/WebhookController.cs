@@ -62,13 +62,13 @@ namespace ChangeLogWeb.Controllers
                 RepositoryName = obj.PullRequest.Head.Repo.Name,
                 Title = obj.PullRequest.Title,
                 MajorTeam = team.Name,
-                ChildTeam = team.ChildrenTeams?.FirstOrDefault(x => x.Name == childTeam).Name
+                ChildTeam = team.ChildrenTeams?.FirstOrDefault(x => x.Name == childTeam)?.Name
             };
 
             pullRequestEvent.Labels = new List<Label>();
             if (obj.PullRequest.Labels != null)
             {
-                foreach (var labelRequest in obj.PullRequest.Labels)
+                foreach (var labelRequest in obj.PullRequest.Labels.Where(x => x.Name.Contains("team:") == false))
                 {
                     var label = new Label()
                     {
@@ -89,19 +89,9 @@ namespace ChangeLogWeb.Controllers
                 return childTeamParameter;
 
             var childTeamByLabel = labels.FirstOrDefault(
-                    x => string.IsNullOrEmpty(x.Name) == false &&
-                    x.Name.ToLower().Contains("team:")).Name;
+                    x => x.Name.ToLower().Contains("team:"))?.Name;
 
-            return childTeamByLabel.Split(':')[1];
-
-            //if (labelRequest.Name.ToLower().Contains("team:"))
-            //{
-            //    var childTeamName = labelRequest.Name.Split(':')[1];
-            //    if (team.ChildrenTeams.Any(x => x.Code == childTeamName.ToLower()))
-            //    {
-            //        pullRequestEvent.ChildTeam = team.ChildrenTeams?.FirstOrDefault(x => x.Code == childTeam).Code;
-            //    }
-            //}
+            return childTeamByLabel?.Split(':')[1];
         }
     }
 }
