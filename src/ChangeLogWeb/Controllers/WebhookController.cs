@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using ChangeLogWeb.Domain;
 using ChangeLogWeb.Domain.Interfaces;
@@ -14,16 +17,39 @@ namespace ChangeLogWeb.Controllers
     public class WebhookController : ControllerBase
     {
         private readonly IPullRequestEventRepository _pullRequestEventRepository;
+        private readonly ITeamRepository _teamRepository;
 
         public WebhookController(
-            IPullRequestEventRepository pullRequestEventRepository)
+            IPullRequestEventRepository pullRequestEventRepository,
+            ITeamRepository teamRepository)
         {
             _pullRequestEventRepository = pullRequestEventRepository;
+            _teamRepository = teamRepository;
         }
 
         // POST api/values
         [HttpPost]
-        public IActionResult Post([FromBody] WebhookRequest obj)
+        [Route("/api/webhook/{majorTeam}")]
+        [Route("/api/webhook/{majorTeam}/child/{childTeam}")]
+        public IActionResult Post(string majorTeam, string childTeam, [FromBody] WebhookRequest obj)
+        {
+            if (string.IsNullOrEmpty(majorTeam))
+                return Unauthorized();
+
+            childTeam = GetChildTeam(childTeam, obj.PullRequest.Labels);
+            var team = _teamRepository.GetByKeys(majorTeam, childTeam);
+
+            if (team == null)
+                return Unauthorized();
+
+            var pullRequestEvent = CreatePullRequestEvent(childTeam, obj, team);
+
+            _pullRequestEventRepository.Insert(pullRequestEvent);
+
+            return Ok(pullRequestEvent);
+        }
+
+        private PullRequestEvent CreatePullRequestEvent(string childTeam, WebhookRequest obj, Team team)
         {
             var pullRequestEvent = new PullRequestEvent()
             {
@@ -34,13 +60,15 @@ namespace ChangeLogWeb.Controllers
                 MergedAt = obj.PullRequest.MergedAt,
                 MergedBy = obj.PullRequest.MergedBy.Login,
                 RepositoryName = obj.PullRequest.Head.Repo.Name,
-                Title = obj.PullRequest.Title
+                Title = obj.PullRequest.Title,
+                MajorTeam = team.Name,
+                ChildTeam = team.ChildrenTeams?.FirstOrDefault(x => x.Name == childTeam)?.Name
             };
 
             pullRequestEvent.Labels = new List<Label>();
-            if(obj.PullRequest.Labels != null)
+            if (obj.PullRequest.Labels != null)
             {
-                foreach (var labelRequest in obj.PullRequest.Labels)
+                foreach (var labelRequest in obj.PullRequest.Labels.Where(x => x.Name.Contains("team:") == false))
                 {
                     var label = new Label()
                     {
@@ -51,20 +79,19 @@ namespace ChangeLogWeb.Controllers
                     pullRequestEvent.Labels.Add(label);
                 }
             }
-            else
-            {
-                var label = new Label()
-                {
-                    Color = "CCCCCC",
-                    Name = "none"
-                };
 
-                pullRequestEvent.Labels.Add(label);
-            }
-            
-            _pullRequestEventRepository.Insert(pullRequestEvent);
+            return pullRequestEvent;
+        }
 
-            return Ok(obj);
+        private string GetChildTeam(string childTeamParameter, IList<LabelDTO> labels)
+        {
+            if (childTeamParameter != null)
+                return childTeamParameter;
+
+            var childTeamByLabel = labels.FirstOrDefault(
+                    x => x.Name.ToLower().Contains("team:"))?.Name;
+
+            return childTeamByLabel?.Split(':')[1];
         }
     }
 }

@@ -17,5 +17,6 @@ namespace ChangeLogWeb.Models.ViewModels
         public string MergedBy { get; set; }
         public string RepositoryName { get; set; }
         public IList<LabelDTO> Labels { get; set; }
+        public TeamResponse Team { get; set; }
     }
 }

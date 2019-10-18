@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace ChangeLogWeb.Domain
 {
-    public class PullRequestEvent
+    public class PullRequestEvent : Entity
     {
-        public object Id { get; set; }
         public string Action { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
@@ -15,5 +14,7 @@ namespace ChangeLogWeb.Domain
         public string MergedBy { get; set; }
         public string RepositoryName { get; set; }
         public IList<Label> Labels { get; set; }
+        public string MajorTeam { get; set; }
+        public string ChildTeam { get; set; }
     }
 }
