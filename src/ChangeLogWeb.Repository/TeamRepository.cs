@@ -32,13 +32,17 @@ namespace ChangeLogWeb.Repository
             return collection.Find(_ => true).ToList();
         }
 
-        public Team GetByKeys(string majorTeam, string secretKey, string childTeam = null)
+        public Team GetByKeys(string majorTeam, string childTeam = null)
         {
+            var builder = Builders<Team>.Filter;
+
+            var majorTeamFilter = builder.Where(x => x.Code == majorTeam);
+            var labelNameFilter = childTeam != null ? 
+                builder.Where(x => x.ChildrenTeams.Any(y => y.Code == childTeam)) :
+                builder.Empty;
+
             return collection
-                .Find(x =>
-                      x.Code == majorTeam && 
-                      x.SecretKey == secretKey &&
-                      x.ChildrenTeams.Any(y => y.Code == childTeam))
+                .Find(majorTeamFilter & labelNameFilter)
                 .FirstOrDefault();
         }
     }

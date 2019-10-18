@@ -14,6 +14,7 @@ namespace ChangeLogWeb.Domain
         public string MergedBy { get; set; }
         public string RepositoryName { get; set; }
         public IList<Label> Labels { get; set; }
-        public Team Team { get; set; }
+        public string MajorTeam { get; set; }
+        public string ChildTeam { get; set; }
     }
 }
