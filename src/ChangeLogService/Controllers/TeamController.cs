@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ChangeLogService.Domain.Interfaces;
-using ChangeLogService.Models;
+using ChangeLogWeb.Domain.Interfaces;
+using ChangeLogWeb.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ChangeLogService.Controllers
+namespace ChangeLogWeb.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

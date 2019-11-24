@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ChangeLogService.Domain.Interfaces
+namespace ChangeLogWeb.Domain.Interfaces
 {
     public interface ITeamRepository
     {

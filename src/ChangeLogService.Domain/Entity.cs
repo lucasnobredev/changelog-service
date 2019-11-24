@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ChangeLogService.Domain
+namespace ChangeLogWeb.Domain
 {
     public class Entity
     {

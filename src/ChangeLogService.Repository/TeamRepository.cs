@@ -1,5 +1,5 @@
-﻿using ChangeLogService.Domain;
-using ChangeLogService.Domain.Interfaces;
+﻿using ChangeLogWeb.Domain;
+using ChangeLogWeb.Domain.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ChangeLogService.Repository
+namespace ChangeLogWeb.Repository
 {
     public class TeamRepository : ITeamRepository
     {

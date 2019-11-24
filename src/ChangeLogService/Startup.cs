@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ChangeLogService.Domain;
-using ChangeLogService.Domain.Interfaces;
-using ChangeLogService.Repository;
+using ChangeLogWeb.Domain;
+using ChangeLogWeb.Domain.Interfaces;
+using ChangeLogWeb.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -19,7 +19,7 @@ using MongoDB.Bson.Serialization.IdGenerators;
 using MongoDB.Bson.Serialization.Serializers;
 using Newtonsoft.Json.Serialization;
 
-namespace ChangeLogService
+namespace ChangeLogWeb
 {
     public class Startup
     {
